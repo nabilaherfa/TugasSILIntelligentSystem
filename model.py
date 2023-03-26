@@ -12,7 +12,7 @@ import time
 
 #import the data
 data = pd.read_csv("Data Clean.csv")
-image = Image.open("house-price.jpg")
+image = Image.open("house-harga.jpg")
 st.title("Selamat Datang di Aplikasi Prediksi Harga Rumah di Jakarta Selatan")
 st.image(image, use_column_width=True)
 
@@ -21,7 +21,7 @@ st.write("Ayo prediksi harga rumah yang akan Anda beli di kota Jakarta Selatan!"
 check_data = st.checkbox("Lihat contoh data")
 if check_data:
     st.write(data[1:10])
-st.write("Sekarang ayo lihat berapa harga nya dengan memilih beberapa parameterNow let's find out how much the prices when we choosing some parameters.")
+st.write("Sekarang ayo lihat berapa harga nya dengan memilih beberapa parameterNow let's find out how much the hargas when we choosing some parameters.")
 
 #input the numbers
 sqft_liv = st.slider("Berapa luas bangunan rumahnya?",int(data.sqft_living.min()),int(data.sqft_living.max()),int(data.sqft_living.mean()) )
@@ -32,8 +32,8 @@ sqft_bas   = st.slider("Berapa luas garasi mobil?",int(data.sqft_basement.min())
 condition  = st.slider("Ada berapa lantai rumahnya?",int(data.condition.min()),int(data.condition.max()),int(data.condition.mean()) )
 
 #splitting your data
-X = data.drop('price', axis = 1)
-y = data['price']
+X = data.drop('harga', axis = 1)
+y = data['harga']
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=.2, random_state=45)
 
 #modelling step
@@ -48,7 +48,7 @@ predictions = model.predict([[sqft_liv,sqft_abo,bath,view,sqft_bas,condition]])[
 akurasi= np.sqrt(r2_score(y_test,model.predict(X_test)))
 
 
-#checking prediction house price
+#checking prediction house harga
 if st.button("Submit"):
     st.header("Prediksi harga rumah adalah: Rp. {}".format(int(predictions)))
     st.subheader("Range prediksinya adalah dari Rp.{} hingga Rp. {}".format(int(predictions-errors),int(predictions+errors) ))
