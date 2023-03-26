@@ -8,9 +8,6 @@ import statsmodels.regression.linear_model as sm
 
 #importing the data
 dataset = pd.read_csv('data.csv')
-dataset= dataset.drop(['date','country','street','statezip'],axis=1).values
-
-
 
 #encoding categorical data
 labelEncoder_X = LabelEncoder()
@@ -30,51 +27,51 @@ data.columns
 # how many data we have
 data.shape
 
-#checking price range
-data.price.describe()
+#checking harga range
+data.harga.describe()
 
 #to view better number, not with e-
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
 
 
-data[data.price == 26590000]
+data[data.harga == 26590000]
 
 
-data.sort_values('price', ascending=False).head(10)
+data.sort_values('harga', ascending=False).head(10)
 
-data.corr()['price'].sort_values()
+data.corr()['harga'].sort_values()
 
-data[['sqft_living', 'sqft_above', 'bathrooms', 'view', 'sqft_basement', 'price']].head()
+data[['harga', 'luas_bangunan', 'luas_tanah', 'jumlah_kamar_tidur', 'jumlah_kamar_mandi', 'luas_garasi']].head()
 
 print(data.columns)
 print(len(data.columns))
 
-data[['price']].describe()
+data[['harga']].describe()
 
-#check what house that don't have price (price=0)
-data[data['price'] == 0]
+#check what house that don't have harga (harga=0)
+data[data['harga'] == 0]
 
 #check how many data
-data[data['price'] == 0].shape[0]
+data[data['harga'] == 0].shape[0]
 
-#check what house that don't have price (price=0)
-data[data['price'] == 26590000]
+#check what house that don't have harga (harga=0)
+data[data['harga'] == 26590000]
 
 #what should you do?
 #in this case I will do something, drop value that not on range
-iqr = data['price'].describe()['75%'] - data['price'].describe()['25%']
-lower_bound = data['price'].describe()['25%'] - (1.5*iqr)
-upper_bound = data['price'].describe()['75%'] + (1.5*iqr)
+iqr = data['harga'].describe()['75%'] - data['harga'].describe()['25%']
+lower_bound = data['harga'].describe()['25%'] - (1.5*iqr)
+upper_bound = data['harga'].describe()['75%'] + (1.5*iqr)
 print("IQR equals {}".format(iqr))
-print("Lower bound of price is {}".format(lower_bound))
-print("Upper bound of price is {}".format(upper_bound))
+print("Lower bound of harga is {}".format(lower_bound))
+print("Upper bound of harga is {}".format(upper_bound))
 
 #just go on with data itself
 data_clean = data.copy()
-data_clean = data[(data.price > 0) & (data.price <= upper_bound)]
+data_clean = data[(data.harga > 0) & (data.harga <= upper_bound)]
 data_clean.shape
 
-data_clean[['price']].describe()
+data_clean[['harga']].describe()
 
 
 + labelEnocder_data = LabelEncoder()
